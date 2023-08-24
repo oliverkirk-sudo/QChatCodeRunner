@@ -2,6 +2,7 @@
 - 适用于[QChatGPT](https://github.com/RockChinQ/QChatGPT)的代码运行插件,用ChatGPT来运行代码
 - 基于 [code_runner](https://code-runner-plugin.vercel.app/)
 - 与GPT4所使用的代码执行器**插件**相同
+- 对于较大的需求，可能生成时间可能较长，请适当调高消息处理的超时时间
 
 ## 1、部署CodeRunner
 
