@@ -125,8 +125,6 @@ class HelloPlugin(Plugin):
                 event.add_return("reply", [Plain(text=b64)])
             else:
                 event.add_return("reply", [Image(base64=b64)])
-            event.prevent_default()
-            event.prevent_postorder()
         pass
 
     @func(name="code_runner")
@@ -183,27 +181,36 @@ class HelloPlugin(Plugin):
 
         return save_code(filename, code)
 
-    #    @func(name="show_snippet")
-    #    def show_snippet(code: str,language: str,title: str,theme: str,showNums: str = "true",opacity: int = 1,blurLines: str = "0"):
-    #        """Call this function when you need to show a snippet of code.
-    #        - Markdown Strictly follow the line break requirements.
-    #        - Always return text in Markdown format.
-    #        - Strictly follow the output requirements.
-    #
-    #        Args:
-    #            code(str): Code text.
-    #            language(str): Code language:python,javascript,java,c,cpp,php,go,html,css,sql,kotlin.
-    #            title(str): Code Title.
-    #            theme(str): Available themes to pick from: alternight,css-variables,dark-plus,dracula-soft,dracula,github-dark-dimmed,github-dark,github-light.
-    #            showNums(str): Whether to show line numbers("true" or "false").
-    #            opacity(int): Opacity(0-1).
-    #            blurLines(str): Blur lines,eg:"6-9",default:"0".
-    #
-    #        Returns:
-    #            str: The requirements you have to perform, Image to Format output of ![title](url).
-    #        """
-    #
-    #        return show_snippet(code, language, title, theme, showNums, opacity, blurLines)
+    @func(name="show_snippet")
+    def show_snippet(
+        code: str,
+        language: str,
+        title: str,
+        theme: str,
+        showNums: str = "true",
+        opacity: int = 1,
+        blurLines: str = "0",
+    ):
+        """Call this function when you need to show a snippet of code.
+        - Enter label and data with strict attention to their input form.
+        - Only return link, link to Format output of image tag : ![title](link).
+        - Do not output code text and code blocks.
+        - Always output an Image tag like ![title](link).
+        - Read the contents of the extra_response_instructions item and parse the result in the output.
+
+        Args:
+            code(str): Code text.
+            language(str): Code language:python,javascript,java,c,cpp,php,go,html,css,sql,kotlin.
+            title(str): Code Title.
+            theme(str): Available themes to pick from: dark-plus,dracula-soft,dracula,github-dark-dimmed,github-dark,github-light.
+            showNums(str): Whether to show line numbers("true" or "false").
+            opacity(int): Opacity(0-1).
+            blurLines(str): Blur lines,eg:"6-9",default:"0".
+
+        Returns:
+            str: snippet_link.
+        """
+        return show_snippet(code, language, title, theme, showNums, opacity, blurLines)
 
     # 插件卸载时触发
     def __del__(self):
