@@ -1,5 +1,5 @@
 # QChatCodeRunner
-- 适用于QChatGPT的代码运行插件,用ChatGPT来运行代码
+- 适用于[QChatGPT](https://github.com/RockChinQ/QChatGPT)的代码运行插件,用ChatGPT来运行代码
 - 基于 [code_runner](https://code-runner-plugin.vercel.app/)
 - 与GPT4所使用的代码执行器**插件**相同
 
@@ -52,7 +52,34 @@ class Config:
         self.wkhtmltoimage_path = "" # wkhtmltoimage文件的位置
 ```
 
+## 未完成的功能
+
+- 代码片段演示功能，在main.py中被注释掉，原因是不能正常渲染图片可能有提示词的原因，且由于不
+知道什么接口可以直接让gpt返回生成的图片，而且会影响其他接口的调用，所以注释掉了。
+
 ## 功能演示
 
 演示使用的是接口是gpt3.5-tubor-16k，可能不够准确
+
+<details>
+<summary>表格生成</summary>
+
 ![image](./pic/1.png)
+
+</details>
+
+<details>
+<summary>代码运行</summary>
+
+![image](./pic/2.png)
+![image](./pic/3.png)
+
+</details>
+
+<details>
+<summary>代码保存</summary>
+
+![image](./pic/4.png)
+[演示的代码](http://2u2.cc/okDCaR9)
+
+</details>
