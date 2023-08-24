@@ -55,8 +55,7 @@ class Config:
 
 ## 未完成的功能
 
-- 代码片段演示功能，在main.py中被注释掉，原因是不能正常渲染图片可能有提示词的原因，且由于不
-知道什么接口可以直接让gpt返回生成的图片，而且会影响其他接口的调用，所以注释掉了。
+- 测试一下代码片段功能如果有影响请注释掉
 
 ## 功能演示
 
@@ -82,5 +81,12 @@ class Config:
 
 ![image](./pic/4.png)
 [演示的代码](http://2u2.cc/okDCaR9)
+
+</details>
+
+<details>
+<summary>代码片段</summary>
+
+![image](./pic/5.png)
 
 </details>
