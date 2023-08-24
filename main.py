@@ -125,6 +125,8 @@ class HelloPlugin(Plugin):
                 event.add_return("reply", [Plain(text=b64)])
             else:
                 event.add_return("reply", [Image(base64=b64)])
+            event.prevent_default()
+            event.prevent_postorder()
         pass
 
     @func(name="code_runner")
