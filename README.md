@@ -45,14 +45,14 @@ RewriteRule ^(.*)$ api.php?short_link=$1 [QSA,L]
 ```python
 class Config:
     def __init__(self):
-        self.domain = "" # CodeRunner-Plugin服务器域名，有官方的https://code-runner-plugin.vercel.app/缺点是被墙
+        self.domain = "" # CodeRunner-Plugin服务器域名
         self.pic_width = 480 # 生成图片的最大宽度，大于这个宽度会缩放
         self.pic_height = None # 生成图片的最大高度，会截断
         self.toMarkdownImg = False  # 是否开启结果转markdown
         self.proxy = None # 代理服务，不会代理markdown渲染服务
         self.wkhtmltoimage_path = "" # wkhtmltoimage文件的位置
 ```
-
+CodeRunner-Plugin服务器域名有官方的`https://code-runner-plugin.vercel.app/` 缺点是被墙,且无法使用代码片段功能
 ## 未完成的功能
 
 - 测试一下代码片段功能如果有影响请注释掉
