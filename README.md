@@ -49,7 +49,7 @@ class Config:
         self.pic_height = None # 生成图片的最大高度，会截断
         self.toMarkdownImg = False  # 是否开启结果转markdown
         self.proxy = None # 代理服务，不会代理markdown渲染服务
-        self.wkhtmltoimage_path = "" #w khtmltoimage文件的位置
+        self.wkhtmltoimage_path = "" # wkhtmltoimage文件的位置
 ```
 
 ## 功能演示
