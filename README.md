@@ -1,5 +1,5 @@
 # QChatCodeRunner
-- 适用于QChatGPT的ai图像生成插件,用ChatGPT来运行代码
+- 适用于QChatGPT的代码运行插件,用ChatGPT来运行代码
 - 基于 [code_runner](https://code-runner-plugin.vercel.app/)
 - 与GPT4所使用的代码执行器**插件**相同
 
