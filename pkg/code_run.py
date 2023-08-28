@@ -1,7 +1,7 @@
 import logging
 
 import requests
-from plugins.CodeRunner.config.coderun_config import Config
+from plugins.QChatCodeRunner.config.coderun_config import Config
 from urllib.parse import quote
 
 _config = Config()

@@ -8,12 +8,12 @@ from markdown.extensions.toc import TocExtension
 from markdown.extensions.fenced_code import FencedCodeExtension
 from mdx_math import MathExtension
 from mirai import Image, Plain
-from plugins.CodeRunner.config.coderun_config import Config
+from plugins.QChatCodeRunner.config.coderun_config import Config
 from pkg.plugin.models import *
 from pkg.plugin.host import EventContext, PluginHost
 import markdown
 import imgkit
-from plugins.CodeRunner.pkg.code_run import (
+from plugins.QChatCodeRunner.pkg.code_run import (
     code_runner,
     graph_generation,
     save_code,
