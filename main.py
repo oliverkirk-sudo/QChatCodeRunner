@@ -94,7 +94,7 @@ def markdown_to_image(md_text, width=None, height=None):
 
 
 @register(
-    name="CodeRunner", description="根据你的输入运行代码创建图像", version="1.1", author="oliverkirk"
+    name="CodeRunner", description="根据你的输入运行代码创建图像", version="1.2", author="oliverkirk"
 )
 class HelloPlugin(Plugin):
 
