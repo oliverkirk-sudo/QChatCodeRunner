@@ -105,7 +105,7 @@ def markdown_to_image(md_text: str, width: int = None, height: int = None):
 @register(
     name="QChatCodeRunner", description="根据你的输入运行代码创建图像", version="1.2", author="oliverkirk"
 )
-class HelloPlugin(Plugin):
+class QChatCodeRunnerPlugin(Plugin):
 
     # 插件加载时触发
     # plugin_host (pkg.plugin.host.PluginHost) 提供了与主程序交互的一些方法，详细请查看其源码
