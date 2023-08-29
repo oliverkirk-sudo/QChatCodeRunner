@@ -1,5 +1,6 @@
 import base64
-import logging
+import traceback
+
 from markdown.extensions.tables import TableExtension
 from markdown.extensions.admonition import AdmonitionExtension
 from markdown.extensions.extra import ExtraExtension
@@ -42,49 +43,57 @@ def resize_image(input_image_path, output_image_path, new_width):
         resized_image.save(output_image_path)
 
 
-def markdown_to_image(md_text, width=None, height=None):
+def markdown_to_image(md_text: str, width: int = None, height: int = None):
     try:
-        logging.debug("将markdown文本转为图片")
-        # 转换Markdown为HTML
-        html = markdown.markdown(
-            md_text,
-            extensions=[
-                TableExtension(),
-                AdmonitionExtension(),
-                MathExtension(enable_dollar_delimiter=True),
-                FencedCodeExtension(),
-                TocExtension(),
-                CodeHiliteExtension(),
-                ExtraExtension(),
-            ],
-        )
-        html = (
-            '<head><meta charset="UTF-8"></head>'
-            + "<style>body {font-family: '微软雅黑', '宋体';}</style>"
-            + html
-        )
-        options = {}
-        if width:
-            options["width"] = width
-        if height:
-            options["height"] = height
+        try:
+            from plugins.QChatMarkdown import md_to_pic
+            logging.info("发现QChatMarkdown插件")
+            base64_image = base64.b64encode(md_to_pic(md=md_text, width=width if width is not None else 600)).decode()
+        except ImportError:
+            traceback.print_exc()
+            logging.info("未检测到QChatMarkdown插件,使用默认生成")
+            logging.debug("将markdown文本转为图片")
+            # 转换Markdown为HTML
+            html = markdown.markdown(
+                md_text,
+                extensions=[
+                    TableExtension(),
+                    AdmonitionExtension(),
+                    MathExtension(enable_dollar_delimiter=True),
+                    FencedCodeExtension(),
+                    TocExtension(),
+                    CodeHiliteExtension(),
+                    ExtraExtension(),
+                ],
+            )
+            html = (
+                    '<head><meta charset="UTF-8"></head>'
+                    + "<style>body {font-family: '微软雅黑', '宋体';}</style>"
+                    + html
+            )
+            options = {}
+            if width:
+                options["width"] = width
+            if height:
+                options["height"] = height
 
-        # 配置imgkit，如果wkhtmltoimage不在你的PATH中，你需要提供路径
-        imgkit_config = imgkit.config(
-            wkhtmltoimage=_config.wkhtmltoimage_path
-            if _config.wkhtmltoimage_path
-            else None
-        )
+            # 配置imgkit，如果wkhtmltoimage不在你的PATH中，你需要提供路径
+            imgkit_config = imgkit.config(
+                wkhtmltoimage=_config.wkhtmltoimage_path
+                if _config.wkhtmltoimage_path
+                else None
+            )
 
-        # 转换HTML为图片
-        image_file = "output.png"
-        imgkit.from_string(html, image_file, config=imgkit_config, options=options)
-        resize_image(image_file, image_file, width)
+            # 转换HTML为图片
+            image_file = "output.png"
+            imgkit.from_string(html, image_file, config=imgkit_config, options=options)
+            resize_image(image_file, image_file, width)
 
-        # 将图片文件转换为Base64编码
-        with open(image_file, "rb") as image_file:
-            base64_image = base64.b64encode(image_file.read()).decode()
+            # 将图片文件转换为Base64编码
+            with open(image_file, "rb") as image_file:
+                base64_image = base64.b64encode(image_file.read()).decode()
     except Exception:
+        traceback.print_exc()
         return md_text
 
     return base64_image
@@ -94,7 +103,7 @@ def markdown_to_image(md_text, width=None, height=None):
 
 
 @register(
-    name="CodeRunner", description="根据你的输入运行代码创建图像", version="1.2", author="oliverkirk"
+    name="QChatCodeRunner", description="根据你的输入运行代码创建图像", version="1.2", author="oliverkirk"
 )
 class HelloPlugin(Plugin):
 
@@ -107,11 +116,11 @@ class HelloPlugin(Plugin):
     def process_message(self, event: EventContext, **kwargs):
         func_list = kwargs["funcs_called"]
         if any(
-            [
-                "CodeRunner-code_runner" in func_list,
-                "CodeRunner-graph_generation" in func_list,
-                "CodeRunner-show_snippet" in func_list,
-            ]
+                [
+                    "QChatCodeRunner-code_runner" in func_list,
+                    "QChatCodeRunner-graph_generation" in func_list,
+                    "QChatCodeRunner-show_snippet" in func_list,
+                ]
         ):
             if _config.toMarkdownImg:
                 b64 = markdown_to_image(
@@ -185,13 +194,13 @@ class HelloPlugin(Plugin):
 
     @func(name="show_snippet")
     def show_snippet(
-        code: str,
-        language: str,
-        title: str,
-        theme: str,
-        showNums: str = "true",
-        opacity: int = 1,
-        blurLines: str = "0",
+            code: str,
+            language: str,
+            title: str,
+            theme: str,
+            showNums: str = "true",
+            opacity: int = 1,
+            blurLines: str = "0",
     ):
         """Call this function when you need to show a snippet of code.
         - Enter label and data with strict attention to their input form.

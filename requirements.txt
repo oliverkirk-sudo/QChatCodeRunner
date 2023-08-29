@@ -3,3 +3,4 @@ Markdown
 imgkit
 pillow
 requests
+pymdown-extensions
