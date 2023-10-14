@@ -9,7 +9,7 @@ from markdown.extensions.toc import TocExtension
 from markdown.extensions.fenced_code import FencedCodeExtension
 from mdx_math import MathExtension
 from mirai import Image, Plain
-from plugins.QChatCodeRunner.config.coderun_config import Config
+from pkg.plugins.QChatCodeRunner.config.coderun_config import Config
 from pkg.plugin.models import *
 from pkg.plugin.host import EventContext, PluginHost
 import markdown
